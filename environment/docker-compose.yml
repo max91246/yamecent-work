@@ -61,7 +61,7 @@ services:
     container_name: yamecent-vite
     restart: unless-stopped
     working_dir: /app
-    command: sh -c "npm install && npm run dev -- --host"
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dev"
     volumes:
       - ../../yamecent-vue:/app
       - vue-node-modules:/app/node_modules
