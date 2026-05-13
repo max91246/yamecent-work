@@ -4,3 +4,4 @@
 *.local
 .env
 .env.*
+.mcp.json

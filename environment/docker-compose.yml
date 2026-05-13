@@ -5,7 +5,6 @@ services:
     restart: unless-stopped
     depends_on:
       - php-fpm
-      - vite
     volumes:
       - ../../yamecent-admin:/var/www/admin
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -59,9 +58,9 @@ services:
   vite:
     image: node:20-alpine
     container_name: yamecent-vite
-    restart: unless-stopped
+    restart: "no"
     working_dir: /app
-    command: sh -c "npm install -g pnpm && pnpm install && pnpm dev"
+    command: sh -c "npm install -g pnpm && pnpm build"
     volumes:
       - ../../yamecent-vue:/app
       - vue-node-modules:/app/node_modules
