@@ -27,7 +27,7 @@ docker compose up -d
 | yamecent-php-fpm | Laravel PHP 8.0 | — |
 | yamecent-mysql | MySQL 8.4 | localhost:3306 |
 | yamecent-redis | Redis 8 | localhost:6379 |
-| yamecent-vite | Vue 3 Vite dev server | — |
+| yamecent-vite | pnpm build（production build only） | — |
 | yamecent-flaresolverr | FlareSolverr 爬蟲輔助 | localhost:8191 |
 
 ### 本地網域（需加入 hosts）
@@ -39,8 +39,8 @@ docker compose up -d
 
 | 網址 | 說明 |
 |------|------|
-| http://yamecent-admin.local | Laravel 後台 |
-| http://yamecent-vue | Vue 前端 |
+| http://yamecent-admin.local | Laravel API 後端 |
+| http://yamecent-vue | pure-admin v7 後台前端（serve dist/） |
 
 ## 目錄說明
 
