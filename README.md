@@ -57,15 +57,58 @@ environment/
         └── yamecent-vue.conf
 ```
 
-## GCP 生產環境部署
+## GCP 生產環境
 
-生產環境由各子專案的 docker-compose 各自管理：
+- Server：`34.122.76.154`（user: `user`，key: `~/.ssh/id_rsa`）
+- 網域：`yamnews.net` / `admin.yamnews.net`
+- SSL：Let's Encrypt（90天自動更新）
+
+### 容器一覽
+
+| 容器 | Image | Port |
+|------|-------|------|
+| yamecent-nginx | nginx:1.25-alpine | 80 / 443 |
+| yamecent-php-fpm | yamecent-admin-php-fpm | 9000 |
+| yamecent-mysql | mysql:8.4 | 3306 |
+| yamecent-redis | redis:8-alpine | 6379 |
+| yamecent-flaresolverr | flaresolverr:latest | 8191 |
+
+### CI/CD 部署流程
+
+升級採 **手動觸發** 模式，開發者決定何時部署到線上。
+
+```text
+本地開發完成
+    ↓
+git push（admin: main / vue: master）
+    ↓
+前往 GitHub Actions 手動觸發
+  Admin: https://github.com/max91246/yamecent-admin/actions
+  Vue:   https://github.com/max91246/yamecent-vue/actions
+    ↓
+Telegram 通知部署結果（成功 ✅ / 失敗 ❌）
+```
+
+**Admin 部署步驟：**
+```bash
+git pull origin main
+composer dump-autoload --optimize
+php artisan migrate --force
+php artisan cache:clear
+```
+
+**Vue 部署步驟：**
+```bash
+git fetch origin master
+git reset --hard origin/master
+# nginx 自動 serve 新 dist/，無需 reload
+```
+
+### 手動 SSH 操作
 
 ```bash
-# 在 GCP server 上
-cd /home/max91246/www/yamecent-admin
-sudo -u max91246 git pull
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+ssh user@34.122.76.154
+docker exec yamecent-php-fpm php artisan [command]
 ```
 
 ## 相關倉庫
