@@ -59,9 +59,11 @@ environment/
 
 ## GCP 生產環境
 
-- Server：`34.122.76.154`（user: `user`，key: `~/.ssh/id_rsa`）
-- 網域：`yamnews.net` / `admin.yamnews.net`
+- Server：`[GCP_HOST]`（user: `[GCP_USER]`，key: `~/.ssh/id_rsa`）
+- 網域：`[DOMAIN]` / `admin.[DOMAIN]`
 - SSL：Let's Encrypt（90天自動更新）
+
+> 實際連線資訊存於 GitHub Secrets，請向專案負責人取得。
 
 ### 容器一覽
 
@@ -83,8 +85,8 @@ environment/
 git push（admin: main / vue: master）
     ↓
 前往 GitHub Actions 手動觸發
-  Admin: https://github.com/max91246/yamecent-admin/actions
-  Vue:   https://github.com/max91246/yamecent-vue/actions
+  Admin repo → Actions → Deploy Admin → Run workflow
+  Vue   repo → Actions → Deploy Vue   → Run workflow
     ↓
 Telegram 通知部署結果（成功 ✅ / 失敗 ❌）
 ```
@@ -107,7 +109,7 @@ git reset --hard origin/master
 ### 手動 SSH 操作
 
 ```bash
-ssh user@34.122.76.154
+ssh [GCP_USER]@[GCP_HOST]
 docker exec yamecent-php-fpm php artisan [command]
 ```
 
@@ -115,6 +117,6 @@ docker exec yamecent-php-fpm php artisan [command]
 
 | 倉庫 | 說明 |
 |------|------|
-| [yamecent-admin](https://github.com/max91246/yamecent-admin) | Laravel 後端 |
-| [yamecent-vue](https://github.com/max91246/yamecent-vue) | Vue 前端 |
-| [yamecent-work](https://github.com/max91246/yamecent-work) | 本倉庫 |
+| yamecent-admin | Laravel 後端 |
+| yamecent-vue | Vue 前端 |
+| yamecent-work | 本倉庫（環境配置） |
