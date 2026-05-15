@@ -32,15 +32,12 @@ docker compose up -d
 
 ### 本地網域（需加入 hosts）
 
-```
-127.0.0.1  yamecent-admin.local
-127.0.0.1  yamecent-vue
-```
+各服務本地網域請參考 `environment/docker/nginx/sites-available-local/` 設定檔。
 
-| 網址 | 說明 |
+| 說明 | Port |
 |------|------|
-| http://yamecent-admin.local | Laravel API 後端 |
-| http://yamecent-vue | pure-admin v7 後台前端（serve dist/） |
+| Laravel API 後端 | 80 |
+| pure-admin v7 後台前端（serve dist/） | 80 |
 
 ## 目錄說明
 
